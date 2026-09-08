@@ -1,0 +1,64 @@
+configuration:
+  spotify_client_id:
+    name: Spotify client ID
+    description: Client ID from your Spotify developer application.
+  spotify_client_secret:
+    name: Spotify client secret
+    description: Client secret from your Spotify developer application. Stored as a secret.
+  spotify_playlist_id:
+    name: Spotify playlist ID
+    description: The 22-character ID of the source playlist (from its share URL). Spotify is the source of truth.
+  youtube_client_id:
+    name: Google OAuth client ID
+    description: OAuth client ID (Desktop app type) from Google Cloud Console.
+  youtube_client_secret:
+    name: Google OAuth client secret
+    description: OAuth client secret from Google Cloud Console. Stored as a secret.
+  youtube_playlist_id:
+    name: YouTube playlist ID
+    description: The ID of the destination YouTube playlist (starts with PL...). Must be owned by the authorized Google account.
+  sync_interval_hours:
+    name: Sync interval (hours)
+    description: How often to run a sync. A sync also runs immediately on startup.
+  strict_mirror:
+    name: Strict mirror
+    description: >-
+      true = keep YouTube as close to Spotify as safely possible.
+      false = more conservative; only remove items with a fully intact managed record.
+      Either way the add-on only ever deletes items it added itself.
+  match_threshold:
+    name: Match confidence threshold
+    description: Minimum confidence (0-1) to auto-add a track. Below this the track is stored as unmatched for review.
+  dry_run:
+    name: Dry run
+    description: Authenticate and compute the full plan but make no changes to the YouTube playlist.
+  log_level:
+    name: Log level
+    description: trace, debug, info, warning or error.
+  manage_order:
+    name: Manage playlist order
+    description: Attempt to keep the YouTube playlist ordered like Spotify. Costs extra YouTube quota.
+  max_reorders_per_sync:
+    name: Max reorders per sync
+    description: Upper bound on playlist-item move operations per sync when manage_order is on.
+  max_removals_per_sync:
+    name: Max removals per sync
+    description: Hard cap on deletions in a single sync. A safety brake against runaway removals.
+  removal_safety_ratio:
+    name: Removal safety ratio
+    description: >-
+      If a sync would remove more than this fraction of the managed items, it is
+      treated as a large removal and skipped unless "Confirm large removal" is on.
+  confirm_large_removal:
+    name: Confirm large removal
+    description: Allow a sync to proceed even when it exceeds the removal safety ratio. Turn on only intentionally.
+  daily_quota_budget:
+    name: Daily YouTube quota budget
+    description: Units of YouTube Data API quota the add-on may spend per Pacific-time day. Default project quota is 10000.
+  unmatched_retry_hours:
+    name: Unmatched retry interval (hours)
+    description: How long to wait before re-searching a track that previously failed to match.
+  region_code:
+    name: YouTube region code
+    description: Two-letter region code used for YouTube search relevance.
+network: {}

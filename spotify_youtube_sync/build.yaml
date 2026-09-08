@@ -1,0 +1,12 @@
+# Base images. These arch-prefixed Python base images are still published by
+# Home Assistant and bundle python3, pip, s6-overlay, bashio and tempio.
+# Pin to a specific Alpine/Python combo for reproducible builds.
+build_from:
+  amd64: ghcr.io/home-assistant/amd64-base-python:3.13-alpine3.23
+  aarch64: ghcr.io/home-assistant/aarch64-base-python:3.13-alpine3.23
+  armv7: ghcr.io/home-assistant/armv7-base-python:3.13-alpine3.23
+labels:
+  org.opencontainers.image.title: "Spotify → YouTube Playlist Sync"
+  org.opencontainers.image.source: "https://github.com/OWNER/spotify-youtube-sync"
+  org.opencontainers.image.licenses: "MIT"
+args: {}

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Local state / secrets — NEVER commit these
+data/
+*.sqlite
+*.sqlite3
+*.db
+*_token.json
+spotify_token.json
+youtube_token.json
+client_secret*.json
+options.json
+.env

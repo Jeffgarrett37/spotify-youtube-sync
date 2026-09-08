@@ -1,0 +1,75 @@
+# Home Assistant add-on configuration.
+# Schema reference: https://developers.home-assistant.io/docs/apps/configuration/
+name: Spotify → YouTube Playlist Sync
+version: "1.0.0"
+slug: spotify_youtube_sync
+description: >-
+  One-way authoritative mirror of a Spotify playlist to a YouTube playlist.
+  Spotify is the source of truth. Runs on startup and every N hours.
+url: "https://github.com/OWNER/spotify-youtube-sync/tree/main/spotify_youtube_sync"
+codenotary: jeffgarrett37@gmail.com
+arch:
+  - amd64
+  - aarch64
+  - armv7
+# We run our own long-lived Python process (scheduler + tiny status server),
+# not an s6 service tree, so disable the base image init.
+init: false
+startup: application
+boot: auto
+# Ingress exposes the status page / "Sync now" button inside the HA UI.
+ingress: true
+ingress_port: 8099
+panel_icon: mdi:sync
+panel_title: Playlist Sync
+# Supervisor restarts the add-on if this endpoint stops answering.
+watchdog: "http://[HOST]:[PORT:8099]/healthz"
+# addon_config maps to /config inside the container and is visible over Samba
+# at \\homeassistant\addon_configs\<slug>\ . Used to drop in the initial
+# OAuth token files; never used to store secrets long-term.
+map:
+  - addon_config:rw
+# No Supervisor / HA API access is required.
+hassio_api: false
+homeassistant_api: false
+host_network: false
+options:
+  spotify_client_id: ""
+  spotify_client_secret: ""
+  spotify_playlist_id: ""
+  youtube_client_id: ""
+  youtube_client_secret: ""
+  youtube_playlist_id: ""
+  sync_interval_hours: 6
+  strict_mirror: true
+  match_threshold: 0.85
+  dry_run: false
+  log_level: info
+  manage_order: false
+  max_reorders_per_sync: 20
+  max_removals_per_sync: 50
+  removal_safety_ratio: 0.34
+  confirm_large_removal: false
+  daily_quota_budget: 9000
+  unmatched_retry_hours: 168
+  region_code: US
+schema:
+  spotify_client_id: str
+  spotify_client_secret: password
+  spotify_playlist_id: str
+  youtube_client_id: str
+  youtube_client_secret: password
+  youtube_playlist_id: str
+  sync_interval_hours: int(1,168)
+  strict_mirror: bool
+  match_threshold: float(0.0,1.0)
+  dry_run: bool
+  log_level: "list(trace|debug|info|warning|error)"
+  manage_order: bool
+  max_reorders_per_sync: int(0,500)
+  max_removals_per_sync: int(0,10000)
+  removal_safety_ratio: float(0.0,1.0)
+  confirm_large_removal: bool
+  daily_quota_budget: int(100,50000000)
+  unmatched_retry_hours: int(1,8760)
+  region_code: "match(^[A-Z]{2}$)"
