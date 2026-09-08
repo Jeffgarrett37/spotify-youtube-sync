@@ -170,7 +170,7 @@ class Config:
             raise ConfigError("sync_interval_hours must be >= 1")
 
     @classmethod
-    def from_env(cls) -> "Config":
+    def from_env(cls) -> Config:
         data_dir = Path(_get("SYNC_DATA_DIR", "/data"))
         return cls(
             data_dir=data_dir,

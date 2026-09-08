@@ -1,0 +1,2 @@
+# Just what scripts/authorize.py needs on your desktop machine.
+requests==2.32.3

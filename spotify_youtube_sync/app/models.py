@@ -157,6 +157,7 @@ class SyncPlan:
     # Safety flags.
     source_validated: bool = False
     large_removal_blocked: bool = False
+    quota_limited: bool = False
     notes: list[str] = field(default_factory=list)
 
     @property

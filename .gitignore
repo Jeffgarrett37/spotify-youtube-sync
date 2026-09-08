@@ -21,3 +21,6 @@ youtube_token.json
 client_secret*.json
 options.json
 .env
+.venv/
+tokens/
+__pycache__/

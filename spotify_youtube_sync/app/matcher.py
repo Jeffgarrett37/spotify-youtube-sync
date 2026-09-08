@@ -23,7 +23,6 @@ from .normalize import (
     normalize_text,
     normalize_title,
     similarity,
-    split_artists,
     title_core,
     token_set_ratio,
 )
@@ -128,7 +127,9 @@ def _duration_score(track: SpotifyTrack, video: YouTubeVideo) -> tuple[float, fl
     over = adelta - DURATION_GRACE_SECONDS
     decayed = 1.0 - (over / span)
     if delta > 0:
-        decayed = min(1.0, decayed + 0.15)
+        # a longer YouTube video (music-video intro/outro) is a bit more
+        # forgivable than a track that is suspiciously short
+        decayed = min(1.0, decayed + 0.06)
     return max(0.0, decayed), delta
 
 
@@ -248,6 +249,20 @@ def score_candidate(
         pen += 0.15
         penalties.append(f"weak-artist({artist_sim:.2f})")
 
+    # Duration acts partly as a gate: a large gap that is not explained by a
+    # music-video intro/outro should keep a candidate out of HIGH no matter how
+    # well the text matches.
+    music_video = bool(contains_any(raw_hay, _OFFICIAL_VIDEO_PHRASES))
+    allow_high = True
+    if delta is not None:
+        adelta = abs(delta)
+        if adelta > 25:
+            pen += min(0.35, (adelta - 25) / 90.0)
+            penalties.append(f"dur±{adelta:.0f}s")
+        explained = music_video and delta > 0
+        if adelta > 35 and not explained and not track.is_live:
+            allow_high = False
+
     score = max(0.0, min(1.0, base + bonus - pen))
 
     # --- tier ----------------------------------------------------------- #
@@ -256,7 +271,8 @@ def score_candidate(
         penalties.append(disqualified)
         tier = MatchTier.LOW
     elif (
-        score >= config.auto_add_threshold
+        allow_high
+        and score >= config.auto_add_threshold
         and artist_sim >= ARTIST_FLOOR_HIGH
         and title_sim >= 0.70
         and duration_score > 0.0
