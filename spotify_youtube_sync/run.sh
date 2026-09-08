@@ -10,7 +10,8 @@
 #   3. Hand off to the long-lived Python process (scheduler + status server).
 # Secrets are never echoed.
 # ---------------------------------------------------------------------------
-set -euo pipefail
+# Note: no `set -e` - bashio helper functions can legitimately return non-zero.
+set -o pipefail
 
 DATA_DIR="/data"
 CONFIG_DIR="/config"          # == /addon_configs/<slug> over Samba

@@ -75,10 +75,8 @@ class Scheduler:
 
     # --- internals ------------------------------------------------- #
     def _loop(self) -> None:
-        first = True
+        reason = "startup"
         while not self._stop.is_set():
-            reason = "startup" if first else self._trigger_reason
-            first = False
             self._safe_run(reason)
             self._schedule_next()
             # Sleep until the interval elapses or someone triggers us.
@@ -86,7 +84,8 @@ class Scheduler:
             self._wake.clear()
             if self._stop.is_set():
                 break
-            self._trigger_reason = "manual" if woke else "scheduled"
+            # A manual trigger sets _trigger_reason just before waking us.
+            reason = self._trigger_reason if woke else "scheduled"
 
     def _safe_run(self, reason: str) -> None:
         with self._busy:

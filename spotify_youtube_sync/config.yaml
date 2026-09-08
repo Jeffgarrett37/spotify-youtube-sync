@@ -7,7 +7,6 @@ description: >-
   One-way authoritative mirror of a Spotify playlist to a YouTube playlist.
   Spotify is the source of truth. Runs on startup and every N hours.
 url: "https://github.com/OWNER/spotify-youtube-sync/tree/main/spotify_youtube_sync"
-codenotary: jeffgarrett37@gmail.com
 arch:
   - amd64
   - aarch64
@@ -22,6 +21,12 @@ ingress: true
 ingress_port: 8099
 panel_icon: mdi:sync
 panel_title: Playlist Sync
+# Declare the status port so the watchdog can reference it. `null` = not bound
+# to a host port; the page is still only reachable through ingress.
+ports:
+  8099/tcp: null
+ports_description:
+  8099/tcp: Status page (normally reached via the sidebar / ingress)
 # Supervisor restarts the add-on if this endpoint stops answering.
 watchdog: "http://[HOST]:[PORT:8099]/healthz"
 # addon_config maps to /config inside the container and is visible over Samba

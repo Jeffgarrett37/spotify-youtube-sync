@@ -465,8 +465,10 @@ class SyncEngine:
 
         self._record_unmatched_summary(plan)
 
-        self.db.set_meta("last_success_at", _now())
-        self.db.set_meta("last_result", "partial" if quota_stop else "success")
+        clean = not quota_stop and not errors and not plan.quota_limited
+        if clean:
+            self.db.set_meta("last_success_at", _now())
+        self.db.set_meta("last_result", "success" if clean else "partial")
         plan_counts = (added, removed, reordered)
         plan.notes.append(f"applied: +{added} -{removed} ~{reordered}")
         # stash for _finish
