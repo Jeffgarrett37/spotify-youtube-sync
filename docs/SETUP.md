@@ -6,7 +6,7 @@ add-on.
 ## 0. Prerequisites
 
 - Home Assistant OS (Supervisor) running 24/7. A Dell OptiPlex / any `amd64`
-  box is ideal; `aarch64` and `armv7` also build.
+  box is ideal; `aarch64` (Raspberry Pi 4/5) also builds.
 - The **Samba share** add-on *or* **Studio Code Server** *or* the **Advanced
   SSH & Web Terminal** add-on installed, so you can drop two files onto the
   system.

@@ -176,7 +176,7 @@ The detailed walkthrough with current (2026) UI steps is in
    `https://github.com/Jeffgarrett37/spotify-youtube-sync`, **Add**.
 2. Find **“Spotify → YouTube Playlist Sync”** in the store and click **Install**
    (it builds the image locally for `amd64` – takes a few minutes on an
-   OptiPlex; `aarch64` and `armv7` are also supported).
+   OptiPlex; `aarch64` is also supported).
 3. Open the add-on → **Configuration**, fill in the six credential/playlist
    fields, leave `dry_run: true` for now, **Save**.
 4. Put the OAuth tokens where the add-on can import them. Using the **Samba

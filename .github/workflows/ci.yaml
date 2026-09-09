@@ -22,7 +22,6 @@ jobs:
 
   addon-lint:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - name: Home Assistant add-on config lint

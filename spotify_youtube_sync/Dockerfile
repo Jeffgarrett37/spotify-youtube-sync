@@ -35,4 +35,9 @@ LABEL \
   io.hass.type="addon" \
   io.hass.version="${BUILD_VERSION}"
 
+# The Supervisor watchdog reads this container health status (replaces the
+# obsolete `watchdog:` add-on option). busybox `wget` ships in the base image.
+HEALTHCHECK --interval=120s --timeout=10s --start-period=45s --retries=3 \
+  CMD wget --quiet --tries=1 --spider http://127.0.0.1:8099/healthz || exit 1
+
 CMD [ "/run.sh" ]
