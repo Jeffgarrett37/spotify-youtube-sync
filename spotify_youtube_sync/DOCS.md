@@ -66,4 +66,4 @@ per-candidate detail. Secrets and tokens are never logged.
 
 ## Support
 
-Issues: https://github.com/OWNER/spotify-youtube-sync/issues
+Issues: https://github.com/Jeffgarrett37/spotify-youtube-sync/issues

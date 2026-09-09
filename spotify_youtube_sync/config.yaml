@@ -6,7 +6,7 @@ slug: spotify_youtube_sync
 description: >-
   One-way authoritative mirror of a Spotify playlist to a YouTube playlist.
   Spotify is the source of truth. Runs on startup and every N hours.
-url: "https://github.com/OWNER/spotify-youtube-sync/tree/main/spotify_youtube_sync"
+url: "https://github.com/Jeffgarrett37/spotify-youtube-sync/tree/main/spotify_youtube_sync"
 arch:
   - amd64
   - aarch64

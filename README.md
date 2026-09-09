@@ -6,8 +6,7 @@ already have on 24/7, syncs on startup and then every 6 hours, and is
 deliberately conservative: it would rather skip a song than add the wrong one,
 and it will **never** delete a YouTube item it didn't add itself.
 
-> Replace `OWNER` in `repository.yaml` and `spotify_youtube_sync/config.yaml`
-> with your GitHub username/org before publishing the repo.
+Repo: <https://github.com/Jeffgarrett37/spotify-youtube-sync>
 
 ---
 
@@ -174,7 +173,7 @@ The detailed walkthrough with current (2026) UI steps is in
 ### Install on Home Assistant OS
 
 1. **Settings → Add-ons → Add-on store → ⋮ → Repositories**, paste
-   `https://github.com/OWNER/spotify-youtube-sync`, **Add**.
+   `https://github.com/Jeffgarrett37/spotify-youtube-sync`, **Add**.
 2. Find **“Spotify → YouTube Playlist Sync”** in the store and click **Install**
    (it builds the image locally for `amd64` – takes a few minutes on an
    OptiPlex; `aarch64` and `armv7` are also supported).

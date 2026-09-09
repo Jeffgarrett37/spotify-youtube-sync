@@ -38,7 +38,7 @@ consent screen and **set publishing status to *In production***, create a
 ## 3. Produce the token files (on your computer)
 
 ```bash
-git clone https://github.com/OWNER/spotify-youtube-sync
+git clone https://github.com/Jeffgarrett37/spotify-youtube-sync
 cd spotify-youtube-sync
 python -m pip install -r scripts/requirements-auth.txt
 
@@ -63,7 +63,7 @@ tokens/youtube_token.json
 ## 4. Add the repository to Home Assistant
 
 **Settings → Add-ons → Add-on store → ⋮ (top right) → Repositories** →
-paste `https://github.com/OWNER/spotify-youtube-sync` → **Add** → close.
+paste `https://github.com/Jeffgarrett37/spotify-youtube-sync` → **Add** → close.
 
 ## 5. Install and pre-configure
 
